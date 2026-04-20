@@ -21,6 +21,10 @@ classifiers = [
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
+[project.scripts]
+download = "bbb_render.download:main"
+make-xges = "bbb_render.make_xges:main"
+
 [project.urls]
 Homepage = "https://public.git.webelys.com/BigBlueButton/bbb-render"
 Issues = "https://public.git.webelys.com/BigBlueButton/bbb-render/issues"
