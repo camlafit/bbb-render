@@ -458,7 +458,11 @@ def parse_time(value):
     return seconds
 
 
-def main(argv):
+def main(argv=None):
+
+    if argv is None:
+        argv = sys.argv
+
     parser = argparse.ArgumentParser(description='convert a BigBlueButton presentation into a GES project')
     parser.add_argument('--start', metavar='TIME', type=parse_time, default=0,
                         help='Start point in the recording (seconds, or mm:ss, hh:mm:ss, dd:hh:mm:ss)')

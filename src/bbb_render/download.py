@@ -144,7 +144,11 @@ def create_slug(name):
         return name
     return None
 
-def main(argv):
+def main(argv=None):
+
+    if argv is None:
+        argv = sys.argv
+
     if len(argv) < 2 or len(argv) > 3:
         sys.stderr.write('usage: {} PRESENTATION-URL [OUTPUT-DIR]\n'.format(argv[0]))
         return 1
