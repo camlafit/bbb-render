@@ -43,14 +43,14 @@ The scripts are written in Python, and rely on the GStreamer Editing
 Services libraries. On an Ubuntu 20.04 system, you will need to
 install at least the following:
 
-```
+```bash
 sudo apt install python3-gi gir1.2-ges-1.0 ges1.0-tools python3-intervaltree
 ```
 
 You may also want to install the [Pitivi video
 editor](https://www.pitivi.org/) to tweak the result before rendering:
 
-```
+```bash
 sudo apt install pitivi
 ```
 
@@ -58,7 +58,7 @@ sudo apt install pitivi
 
 First, download the presentation assets locally. The `download.py` script accepts 2 parameters:
 
-```
+```bash
 ./download.py PRESENTATION_URL [OUTDIR]
 ```
 
@@ -75,7 +75,7 @@ and the known video title, extracted from the metadata.
 The second script combines the downloaded assets into a GStreamer
 Editing Services project.
 
-```
+```bash
 ./make-xges.py OUTDIR PRESENTATION.xges
 ```
 
@@ -101,7 +101,7 @@ Some accepted `TIME` formats:
 
 The project can be previewed using the `ges-launch-1.0` command line tool:
 
-```
+```bash
 ges-launch-1.0 --load presentation.xges
 ```
 
@@ -113,13 +113,13 @@ before rendering.
 If everything looks good, the project can be rendered to a video.  The
 following should produce an MP4 file suitable for upload to YouTube:
 
-```
+```bash
 ges-launch-1.0 --load presentation.xges -o presentation.mp4
 ```
 
 Or alternatively, it can be rendered as WebM:
 
-```
+```bash
 ges-launch-1.0 --load presentation.xges -o presentation.webm \
   --format 'video/webm:video/x-vp8:audio/x-vorbis'
 ```
