@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "bbb-render"
+name = "bbb_render"
 version = "0.0.1"
 authors = [
   { name="James Henstridge", email="james@jamesh.id.au" },
