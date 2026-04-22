@@ -160,22 +160,10 @@ def run(args):
     return 0
 
 def main(argv=None):
-
+    from bbb_render.__main__ import main as root_main
     if argv is None:
-        argv = sys.argv
+        argv = sys.argv[1:]
+    return root_main(["download", *argv])
 
-    if len(argv) < 2 or len(argv) > 3:
-        sys.stderr.write('usage: {} PRESENTATION-URL [OUTPUT-DIR]\n'.format(argv[0]))
-        return 1
-
-    url = argv[1]
-    dirname = None
-    if len(argv) > 2:
-        dirname = argv[2]
-
-    d = Downloader(url, dirname)
-    d.download()
-
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+if __name__ == "__main__":
+    raise SystemExit(main())
