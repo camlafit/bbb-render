@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bbb_render"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="James Henstridge", email="james@jamesh.id.au" },
   { name=" Valerio Bozzolan,", email="nsa+gitspam@succhia.cz" },
@@ -26,8 +26,7 @@ license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
 [project.scripts]
-download = "bbb_render.download:main"
-make-xges = "bbb_render.make_xges:main"
+bbb-render = "bbb_render.__main__:main"
 
 [project.urls]
 Homepage = "https://public.git.webelys.com/BigBlueButton/bbb-render"
