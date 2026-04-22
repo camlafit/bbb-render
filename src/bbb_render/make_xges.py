@@ -5,6 +5,7 @@ import collections
 import operator
 import os
 import sys
+import argparse
 import xml.etree.ElementTree as ET
 
 import gi
@@ -457,6 +458,50 @@ def parse_time(value):
 
     return seconds
 
+def register_subcommand(subparsers):
+    parser = subparsers.add_parser(
+        "make-xges",
+        help="convert a BigBlueButton presentation into a GES project",
+    )
+    parser.add_argument('--start', metavar='TIME', type=parse_time, default=0,
+                        help='Start point in the recording (seconds, or mm:ss, hh:mm:ss, dd:hh:mm:ss)')
+    parser.add_argument('--end', metavar='TIME', type=parse_time, default=None,
+                        help='End point in the recording')
+    parser.add_argument('--width', metavar='WIDTH', type=int, default=1920,
+                        help='Video width')
+    parser.add_argument('--height', metavar='HEIGHT', type=int, default=1080,
+                        help='Video height')
+    parser.add_argument('--webcam-size', metavar='PERCENT', type=int,
+                        default=25, choices=range(101),
+                        help='Amount of screen to reserve for camera')
+    parser.add_argument('--crop-webcam', action='store_true',
+                        help='Crop webcam to 16:9 aspect ratio')
+    parser.add_argument('--stretch-webcam', action='store_true',
+                        help='Stretch webcam to 16:9 aspect ratio')
+    parser.add_argument('--backdrop', metavar='FILE', type=str, default=None,
+                        help='Backdrop image for the project')
+    parser.add_argument('--opening-credits', metavar='FILE[:DURATION]',
+                        type=str, action='append', default=[],
+                        help='File to use as opening credits (may be repeated)')
+    parser.add_argument('--closing-credits', metavar='FILE[:DURATION]',
+                        type=str, action='append', default=[],
+                        help='File to use as closing credits (may be repeated)')
+    parser.add_argument('--annotations', action='store_true', default=False,
+                        help='Add annotations to slides (requires inkscape)')
+    parser.add_argument('--fullscreen', action='store_true', default=False,
+                        help='Show slides/screenshare in fullscreen and webcam over it')
+    parser.add_argument('basedir', metavar='PRESENTATION-DIR', type=str,
+                        help='directory containing BBB presentation assets')
+    parser.add_argument('project', metavar='OUTPUT', type=str,
+                        help='output filename for GES project')
+    parser.set_defaults(func=run)
+
+def run(args):
+    Gst.init(None)
+    GES.init()
+    p = Presentation(args)
+    p.save()
+    return 0
 
 def main(argv=None):
 

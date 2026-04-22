@@ -2,6 +2,7 @@
 
 import datetime
 import os
+import argparse
 import re
 import sys
 import shutil
@@ -143,6 +144,20 @@ def create_slug(name):
         name = re.sub(r'[^a-z0-9-]', '', name)
         return name
     return None
+
+def register_subcommand(subparsers):
+    parser = subparsers.add_parser(
+        "download",
+        help="Download a BigBlueButton presentation",
+    )
+    parser.add_argument("url", help="BigBlueButton presentation URL")
+    parser.add_argument("output_dir", nargs="?", help="Output directory")
+    parser.set_defaults(func=run)
+
+def run(args):
+    d = Downloader(args.url, args.output_dir)
+    d.download()
+    return 0
 
 def main(argv=None):
 
