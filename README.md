@@ -37,29 +37,36 @@ Missing features / Known bugs:
 
 * https://github.com/valerio-bozzolan/bbb-render/issues
 
-## Prerequisites
+## Installation
 
-The scripts are written in Python, and rely on the GStreamer Editing
-Services libraries. On an Ubuntu 20.04 system, you will need to
-install at least the following:
+bbb-render use the GStreamer Editing Services libraries. These packages are provided mainly by operating system. You need to install them before.
+
+### Pipx (Ubuntu/Debian like system)
 
 ```bash
+#Use pipx
+sudo apt install pipx
+#Install gtk lib requirements
 sudo apt install python3-gi gir1.2-ges-1.0 ges1.0-tools python3-intervaltree
+#Install bbb-render script 
+pipx install --system-site-packages --pip-args='--extra-index-url https://public.git.webelys.com/api/packages/BigBlueButton/pypi/simple/' bbb-render
 ```
+### Optional
 
-You may also want to install the [Pitivi video
-editor](https://www.pitivi.org/) to tweak the result before rendering:
+You may also want to install the [Pitivi video editor](https://www.pitivi.org/) to tweak the result before rendering:
 
 ```bash
 sudo apt install pitivi
 ```
 
-## Downloading a presentation
+## Use bbb-render
 
-First, download the presentation assets locally. The `download.py` script accepts 2 parameters:
+### Downloading a presentation
+
+First, download the presentation assets locally. This part is managed by `download` module and can be call with 2 parameters:
 
 ```bash
-./download.py PRESENTATION_URL [OUTDIR]
+bbb-render download PRESENTATION_URL [OUTDIR]
 ```
 
 The `PRESENTATION_URL` should be a full URL containing the string
@@ -76,14 +83,14 @@ The second script combines the downloaded assets into a GStreamer
 Editing Services project.
 
 ```bash
-./make-xges.py OUTDIR PRESENTATION.xges
+bbb-render make-xges OUTDIR PRESENTATION.xges
 ```
 
 It takes the following optional parameters to influence the project:
 
-* `--start=TIME` and `--end=TIME` can be used to trim footage from the start or end of the recording.  This can be helpful if the recording was started early, or you want to split the recoridng into multiple projects.
+* `--start=TIME` and `--end=TIME` can be used to trim footage from the start or end of the recording.  This can be helpful if the recording was started early, or you want to split the recordng into multiple projects.
 * `--width=WIDTH` and `--height=HEIGHT` control the dimensions of the video.  The default resolution is 1920x1080.
-* `--webcam-size=PERCENT` controls how much of the frame width will be devoted to the webcam footage.  This defaults to 20%.
+* `--webcam-size=PERCENT` controls how much of the frame width will be devoted to the webcam footage.  This defaults to 25%.
 * `--stretch-webcam` stretches the webcam footage by 33%.  This was added to correct the camera aspect ratio in some of our recordings.
 * `--backdrop=FILE` sets a still image to place behind other elements.  This can be used to fill in the empty space in the frame.
 * `--opening-credits=FILE[:DURATION]` and `--closing-credits=FILE[:DURATION]` will add credits to project.  These can either be videos or still images (which will default to 3 seconds duration).  These options can be repeated to add multiple credits.
@@ -97,7 +104,9 @@ Some accepted `TIME` formats:
 * `hh:mm:ss` hours minutes and seconds
 * `dd:hh:mm:ss` days, hours, minutes and seconds
 
-## Render Preview
+## Render video
+
+### Preview
 
 The project can be previewed using the `ges-launch-1.0` command line tool:
 
@@ -108,7 +117,7 @@ ges-launch-1.0 --load presentation.xges
 It can also be loaded in Pitivi if you want to tweak the project
 before rendering.
 
-## Render Video
+## Export Video
 
 If everything looks good, the project can be rendered to a video.  The
 following should produce an MP4 file suitable for upload to YouTube:
@@ -127,8 +136,8 @@ ges-launch-1.0 --load presentation.xges -o presentation.webm \
 ## License
 
 Copyright (c) 2020-2022 [James Henstridge](https://github.com/jhenstridge) and contributors
-
 Copyright (c) 2021-2025 [Valerio Bozzolan](https://boz.reyboz.it/), contributors
+Copyright (c) 2026 [Camille Lafitte](https://km.azerttyu.net/), contributors
 
 The project is Free as in freedom software, released under the terms of the MIT License.
 
